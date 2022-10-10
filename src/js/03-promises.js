@@ -1,8 +1,64 @@
+import "flatpickr/dist/flatpickr.min.css";
+import Notiflix from 'notiflix';
+
 function createPromise(position, delay) {
-  const shouldResolve = Math.random() > 0.3;
-  if (shouldResolve) {
-    // Fulfill
-  } else {
-    // Reject
-  }
+
+
+  const promise = new Promise((resolve, reject) => {
+  
+    const shouldResolve = Math.random() > 0.3;
+  
+    setTimeout(() => {
+      
+      if (shouldResolve) {
+        resolve( {position, delay});
+      } else {
+        reject({position, delay});
+      }
+    }, delay);
+    
+  });
+
+  return promise;
 }
+
+
+const form = document.querySelector(".form");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+    
+  const { delay, step, amount } = e.currentTarget.elements;
+    
+  const timeObject = {
+    firstDelay: delay.value,
+    step: step.value,
+    amount: amount.value,
+  }
+
+  let position = 0;
+  setTimeout(() => {
+    const interval = setInterval(() => { 
+      position += 1;
+      createPromise(position, timeObject.step)
+        .then(({ position, delay }) => {
+        Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      })
+        .catch(({ position, delay }) => {
+        Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+        });
+        
+      if (position >= timeObject.amount) {
+        clearInterval(interval);
+      }
+    }, timeObject.step)
+
+  }, timeObject.firstDelay);
+
+}
+)
+    
+
+
+
+
