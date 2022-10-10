@@ -11,7 +11,7 @@ console.log(startBtn);
 console.log(stopBtn);
 let interval = null;
 
-startBtn.addEventListener("click", onClickStart)
+startBtn.addEventListener("click", (onClickStart))
 
 function onClickStart(e) {
   body.style.backgroundColor = `${getRandomHexColor()}`
