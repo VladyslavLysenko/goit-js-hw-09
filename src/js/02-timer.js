@@ -86,7 +86,7 @@ startBtn.addEventListener("click", (e) => {
 
   // console.log(e);
   let intervalTimer = setInterval(() => {
-  const now = new Date();
+  let now = new Date();
   
     ms = futureDate.getTime() - now.getTime();
     // console.log(ms);
@@ -96,7 +96,8 @@ startBtn.addEventListener("click", (e) => {
     hoursValue.textContent = addLeadingZero(resultConvertMs.hours);
     minutesValue.textContent = addLeadingZero(resultConvertMs.minutes);
     secondsValue.textContent = addLeadingZero(resultConvertMs.seconds);
-    if (ms <= 0) {
+    if (ms <= 0)
+    {
       clearInterval(intervalTimer)
       dayValue.textContent = addLeadingZero(0);
       hoursValue.textContent = addLeadingZero(0);

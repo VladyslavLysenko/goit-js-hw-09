@@ -36,10 +36,13 @@ form.addEventListener("submit", (e) => {
     amount: amount.value,
   }
 
-  let position = 0;
-  setTimeout(() => {
-    const interval = setInterval(() => { 
-      position += 1;
+
+
+  for (let i = 0; i < timeObject.amount; i++) {
+
+    let position += 1;
+    let interval = timeObject.firstDelay + i * delay;
+     
       createPromise(position, timeObject.step)
         .then(({ position, delay }) => {
         Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
@@ -51,9 +54,27 @@ form.addEventListener("submit", (e) => {
       if (position >= timeObject.amount) {
         clearInterval(interval);
       }
-    }, timeObject.step)
 
-  }, timeObject.firstDelay);
+    }
+
+
+
+    // const interval = setInterval(() => { 
+    //   position += 1;
+    //   createPromise(position, timeObject.step)
+    //     .then(({ position, delay }) => {
+    //     Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+    //   })
+    //     .catch(({ position, delay }) => {
+    //     Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+    //     });
+        
+    //   if (position >= timeObject.amount) {
+    //     clearInterval(interval);
+    //   }
+    // }, timeObject.step)
+
+ 
 
 }
 )
