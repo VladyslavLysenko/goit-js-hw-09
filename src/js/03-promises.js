@@ -39,8 +39,8 @@ form.addEventListener("submit", (e) => {
 
 
   for (let i = 0; i < timeObject.amount; i++) {
-
-    let position += 1;
+    let position = 0;
+        position += 1;
     let interval = timeObject.firstDelay + i * delay;
      
       createPromise(position, timeObject.step)
